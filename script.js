@@ -18,23 +18,54 @@ let remplazo = [
 
 bEncriptar.addEventListener("click", () => {
     const textoIngresado = inputTexto.value.toLowerCase();
+    
+    // Validación para no permitir acentos ni caracteres especiales
+    const regex = /^[a-z0-9\s]+$/;
+    if (!regex.test(textoIngresado)) {
+        alert("El texto no debe contener acentos ni caracteres especiales.");
+        return;
+    }
+
     function textoEncriptado(newTex) {
         for (let i = 0; i < remplazo.length; i++) {
             if (newTex.includes(remplazo[i][0])) {
-                newTex = newTex.replace(remplazo[i][0], remplazo[i][1]);
+                newTex = newTex.replaceAll(remplazo[i][0], remplazo[i][1]);
             }
         };
         return newTex;
     };
-    textoEncriptado = textoEncriptado(textoIngresado);
-    textoFinal.innerText = textoEncriptado;
+    
+    const textoFinalEncriptado = textoEncriptado(textoIngresado);
+    textoFinal.innerText = textoFinalEncriptado;
     muneco.style.display = "none";
     inputTexto.value = "";
     textoInfo.style.display = "none";
     copiar.style.display = "block";
     presentacion__contenido__textarea.classList.add("ajuste");
     textoFinal.classList.add("ajuste");
-})
+});
+
+
+
+// bEncriptar.addEventListener("click", () => {
+//     const textoIngresado = inputTexto.value.toLowerCase();
+//     function textoEncriptado(newTex) {
+//         for (let i = 0; i < remplazo.length; i++) {
+//             if (newTex.includes(remplazo[i][0])) {
+//                 newTex = newTex.replace(remplazo[i][0], remplazo[i][1]);
+//             }
+//         };
+//         return newTex;
+//     };
+//     textoEncriptado = textoEncriptado(textoIngresado);
+//     textoFinal.innerText = textoEncriptado;
+//     muneco.style.display = "none";
+//     inputTexto.value = "";
+//     textoInfo.style.display = "none";
+//     copiar.style.display = "block";
+//     presentacion__contenido__textarea.classList.add("ajuste");
+//     textoFinal.classList.add("ajuste");
+// })
 
 bDesencriptar.addEventListener("click", () => {
     const textoIngresado = inputTexto.value.toLowerCase();
